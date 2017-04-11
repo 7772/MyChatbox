@@ -1,0 +1,14 @@
+I"Å(function() {
+  $(document).on("turbolinks:load", function() {
+    return $('#message_content').on('keydown', function(event) {
+      if (event.keyCode === 13 && !event.shiftKey) {
+        $('input').click();
+        event.target.value = '';
+        event.preventDefault();
+        return $("#messages").scrollTop($("#messages")[0].scrollHeight);
+      }
+    });
+  });
+
+}).call(this);
+:ET

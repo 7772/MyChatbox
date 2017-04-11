@@ -1,0 +1,15 @@
+I"ë(function() {
+  App.chatting = App.cable.subscriptions.create("ChattingChannel", {
+    connected: function() {},
+    disconnected: function() {},
+    received: function(data) {
+      if (data.content.blank == null) {
+        $('#messages_box').append("<li>" + data.message_user.email.split('@')[0] + " : " + data.content + "</li>");
+        $('#message_content').value("");
+        return $('#messages_box').scrollTop($('#messages_box')[0].scrollHeight);
+      }
+    }
+  });
+
+}).call(this);
+:ET

@@ -1,0 +1,27 @@
+I"?(function() {
+  jQuery(document).on('turbolinks:load', function() {
+    var messages, messages_to_bottom;
+    messages = $('#messages');
+    if ($('#messages').length > 0) {
+      messages_to_bottom = function() {
+        return messages.scrollTop(messages.prop("scrollHeight"));
+      };
+      return messages_to_bottom();
+    }
+  });
+
+  App.chatting = App.cable.subscriptions.create("ChattingChannel", {
+    connected: function() {},
+    disconnected: function() {},
+    received: function(data) {
+      if (data.content.blank == null) {
+        $('#messages').append("<li>" + data.message_user.email.split('@')[0] + " : " + data.content + "</li>");
+        $('#message_content').value("");
+        $('#messages').scrollTop($('#messages')[0].scollHeight);
+        return messages_to_bottom();
+      }
+    }
+  });
+
+}).call(this);
+:ET
